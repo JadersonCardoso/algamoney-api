@@ -17,44 +17,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.algamoney.api.model.Categoria;
-import com.algamoney.api.reposiroty.CategoriaRepository;
+import com.algamoney.api.model.Pessoa;
+import com.algamoney.api.reposiroty.PessoaRepository;
 
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaResource {
+@RequestMapping("/pessoas")
+public class PessoaResource {
 	
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private PessoaRepository pessoaRepository;
 	
 	@GetMapping
-	public List<Categoria> listar() {		
-		return categoriaRepository.findAll();		
+	public List<Pessoa> listar() {
+		return pessoaRepository.findAll();
 	}
 	
-	@PostMapping	
-	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
-		Categoria categoriaSalva = categoriaRepository.save(categoria);
+	@PostMapping
+	public ResponseEntity<Pessoa> criar (@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
+		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
-			.buildAndExpand(categoriaSalva.getCodigo()).toUri();
+				.buildAndExpand(pessoaSalva.getCodigo()).toUri();
 		response.setHeader("Location", uri.toASCIIString());
 		
-		return ResponseEntity.created(uri).body(categoriaSalva);
+		return ResponseEntity.created(uri).body(pessoaSalva);
 	}
 	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Optional<Categoria>> buscaPeloCodigo(@PathVariable Long codigo, HttpServletResponse response) {
-		Optional<Categoria> categoriaRetornada = categoriaRepository.findById(codigo);
+	public ResponseEntity<Optional<Pessoa>> buscaPeloCodigo(@PathVariable Long codigo, HttpServletResponse response)  {
+		Optional<Pessoa> pessoaRetornada = pessoaRepository.findById(codigo);
 		
-		if(categoriaRetornada.isPresent()){
-			return ResponseEntity.ok(categoriaRetornada);
+		if(pessoaRetornada.isPresent()){
+			return ResponseEntity.ok(pessoaRetornada);
 		}
 		
 		return ResponseEntity.notFound().build();
 		
 	}
-	
-	
 
 }
