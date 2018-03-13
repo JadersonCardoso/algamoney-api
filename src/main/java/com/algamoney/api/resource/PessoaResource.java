@@ -63,8 +63,7 @@ public class PessoaResource {
 		return ResponseEntity.notFound().build();		
 	}
 	
-	@DeleteMapping("/{codigo}")
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{codigo}")	
 	public void remover(@PathVariable Long codigo) {
 		pessoaRepository.deleteById(codigo);
 	}
@@ -75,6 +74,13 @@ public class PessoaResource {
 		return ResponseEntity.ok(pessoaSalva);
 				
 	}
+	
+	@PutMapping("/{codigo}/ativo")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
+		pessoaService.atualizaPropriedadeAtivo(codigo, ativo);
+	}
+	
 	
 
 }

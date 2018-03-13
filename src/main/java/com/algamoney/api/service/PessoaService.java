@@ -15,13 +15,26 @@ public class PessoaService {
 	private PessoaRepository pessoaRepository;
 	
 	public Pessoa atualiza(Long codigo, Pessoa pessoa) {		
-		Pessoa  pessoaSalva = pessoaRepository.findByCodigo(codigo);		
-		if(pessoaSalva == null){
-			throw new EmptyResultDataAccessException(1);		
-		}		
+		Pessoa pessoaSalva = buscarPessoaPorCodigo(codigo);		
 		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
 		return pessoaRepository.save(pessoaSalva);		
 		
+	}
+
+	public void atualizaPropriedadeAtivo(Long codigo, Boolean ativo) {
+		Pessoa pessoaSalva = buscarPessoaPorCodigo(codigo);
+		pessoaSalva.setAtivo(ativo);
+		pessoaRepository.save(pessoaSalva);
+		
+		
+	}
+	
+	private Pessoa buscarPessoaPorCodigo(Long codigo) {
+		Pessoa  pessoaSalva = pessoaRepository.findByCodigo(codigo);		
+		if(pessoaSalva == null){
+			throw new EmptyResultDataAccessException(1);		
+		}
+		return pessoaSalva;
 	}
 
 }
