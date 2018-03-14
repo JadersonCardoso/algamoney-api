@@ -1,5 +1,6 @@
 package com.algamoney.api.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "lancamento")
@@ -23,15 +25,23 @@ public class Lancamento {
 	
 	private String descricao;
 	
+	@NotNull
 	@Column(name="data_vencimento")
 	private LocalDate dataVencimento;
 	
 	@Column(name="data_pagamento")
 	private LocalDate dataPagamento;
 	
+	@NotNull
+	private BigDecimal valor;
+
+	private String observacao;	
+	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoLancamento tipo;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "codigo_categoria")
 	private Categoria categoria;
@@ -70,6 +80,22 @@ public class Lancamento {
 
 	public void setDataPagamento(LocalDate dataPagamento) {
 		this.dataPagamento = dataPagamento;
+	}	
+	
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public TipoLancamento getTipo() {

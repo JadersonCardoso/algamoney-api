@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algamoney.api.event.RecursoCriadoEvent;
 import com.algamoney.api.model.Categoria;
-import com.algamoney.api.reposiroty.CategoriaRepository;
+import com.algamoney.api.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/categorias")

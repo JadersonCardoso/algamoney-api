@@ -6,7 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.algamoney.api.model.Pessoa;
-import com.algamoney.api.reposiroty.PessoaRepository;
+import com.algamoney.api.repository.PessoaRepository;
 
 @Service
 public class PessoaService {
@@ -17,7 +17,7 @@ public class PessoaService {
 	public Pessoa atualiza(Long codigo, Pessoa pessoa) {		
 		Pessoa pessoaSalva = buscarPessoaPorCodigo(codigo);		
 		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
-		return pessoaRepository.save(pessoaSalva);		
+		return pessoaRepository.save(pessoaSalva);	
 		
 	}
 
@@ -29,7 +29,7 @@ public class PessoaService {
 		
 	}
 	
-	private Pessoa buscarPessoaPorCodigo(Long codigo) {
+	public Pessoa buscarPessoaPorCodigo(Long codigo) {
 		Pessoa  pessoaSalva = pessoaRepository.findByCodigo(codigo);		
 		if(pessoaSalva == null){
 			throw new EmptyResultDataAccessException(1);		

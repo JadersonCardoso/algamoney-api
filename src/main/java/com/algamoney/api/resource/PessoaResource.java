@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algamoney.api.event.RecursoCriadoEvent;
 import com.algamoney.api.model.Pessoa;
-import com.algamoney.api.reposiroty.PessoaRepository;
+import com.algamoney.api.repository.PessoaRepository;
 import com.algamoney.api.service.PessoaService;
 
 @RestController
@@ -71,8 +71,7 @@ public class PessoaResource {
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
 		Pessoa pessoaSalva = pessoaService.atualiza(codigo, pessoa);
-		return ResponseEntity.ok(pessoaSalva);
-				
+		return ResponseEntity.ok(pessoaSalva);				
 	}
 	
 	@PutMapping("/{codigo}/ativo")
