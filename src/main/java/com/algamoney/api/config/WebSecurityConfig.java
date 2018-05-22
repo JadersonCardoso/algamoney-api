@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@Order(1)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
